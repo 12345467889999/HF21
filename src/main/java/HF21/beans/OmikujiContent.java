@@ -9,17 +9,15 @@ public class OmikujiContent {
     private String wish;    // 愿望
     private String love;    // 恋爱
     private String study;   // 学业
-    private String work;    // 工作
+    private String business;    // 工作
     private String health;  // 健康
-    private String travel;  // 旅行
 
-    public OmikujiContent(String wish, String love, String study, String work, String health, String travel) {
+    public OmikujiContent(String wish, String love, String study, String business, String health) {
         this.wish = wish;
         this.love = love;
         this.study = study;
-        this.work = work;
+        this.business = business;
         this.health = health;
-        this.travel = travel;
     }
 
     public OmikujiContent() {
@@ -49,12 +47,12 @@ public class OmikujiContent {
         this.study = study;
     }
 
-    public String getWork() {
-        return work;
+    public String getBusiness() {
+        return business;
     }
 
-    public void setWork(String work) {
-        this.work = work;
+    public void setBusiness(String business) {
+        this.business = business;
     }
 
     public String getHealth() {
@@ -65,23 +63,14 @@ public class OmikujiContent {
         this.health = health;
     }
 
-    public String getTravel() {
-        return travel;
-    }
-
-    public void setTravel(String travel) {
-        this.travel = travel;
-    }
-
     @Override
     public String toString() {
         return "OmikujiContent{" +
                 "wish='" + wish + '\'' +
                 ", love='" + love + '\'' +
                 ", study='" + study + '\'' +
-                ", work='" + work + '\'' +
+                ", business='" + business + '\'' +
                 ", health='" + health + '\'' +
-                ", travel='" + travel + '\'' +
                 '}';
     }
 }

@@ -43,7 +43,7 @@ public class OmikujiAiServiceImpl implements OmikujiAiService {
         system.put("role", "system");
         system.put("content",
                 "あなたは日本の神社でおみくじを書く巫女です。" +
-                        "出力は JSON 形式で、項目は wish, love, study, work, health, travel です。" +
+                        "出力は JSON 形式で、項目は wish, love, study, business, healthです。" +
                         "各項目は運勢の内容を2～3文の自然な日本語で書いてください。" +
                         "文体は穏やかで礼儀正しく、少し古風で神聖な雰囲気を持たせます。" +
                         "ただし、文章の始まりに「〜においては」「〜については」などの硬い表現を絶対に使わないで、" +
@@ -58,7 +58,7 @@ public class OmikujiAiServiceImpl implements OmikujiAiService {
         user.put("content",
                 "おみくじの種類は「" + rankLabel + "」です。" +
                         buildToneHint(rankLabel) +
-                        "願望(wish)、恋愛(love)、学業(study)、仕事(work)、健康(health)、旅行(travel)の六項目について、" +
+                        "願望(wish)、恋愛(love)、学問(study)、商売(business)、健康(health)の五項目について、" +
                         "それぞれにふさわしい日本語の運勢文を作成してください。" +
                         "文章の始まりに「〜においては」「〜については」などの硬い表現を絶対に使わないでください");
         messages.add(user);

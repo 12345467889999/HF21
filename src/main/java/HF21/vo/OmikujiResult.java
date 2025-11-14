@@ -2,10 +2,13 @@ package HF21.vo;
 
 
 import HF21.beans.OmikujiContent;
+import HF21.beans.OmikujiLuckyItem;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OmikujiResult {
+
+    private Integer id;
 
     // 签位文本：大吉 / 吉 / 凶 ...
     private String rank;
@@ -13,9 +16,22 @@ public class OmikujiResult {
     // 详细签文（愿望、恋爱、学业、工作、健康、旅行）
     private OmikujiContent content;
 
-    public OmikujiResult(String rank, OmikujiContent content) {
+    //幸运地点和食物
+    private OmikujiLuckyItem items;
+
+    public OmikujiResult(Integer id ,String rank, OmikujiContent content, OmikujiLuckyItem items) {
+        this.id = id;
         this.rank = rank;
         this.content = content;
+        this.items = items;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public OmikujiResult() {
@@ -37,11 +53,21 @@ public class OmikujiResult {
         this.content = content;
     }
 
+    public OmikujiLuckyItem getItems() {
+        return items;
+    }
+
+    public void setItems(OmikujiLuckyItem items) {
+        this.items = items;
+    }
+
     @Override
     public String toString() {
         return "OmikujiResult{" +
-                "rank='" + rank + '\'' +
+                "id=" + id +
+                ", rank='" + rank + '\'' +
                 ", content=" + content +
+                ", items=" + items +
                 '}';
     }
 }

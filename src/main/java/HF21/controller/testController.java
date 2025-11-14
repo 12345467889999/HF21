@@ -1,14 +1,10 @@
 package HF21.controller;
 
 
-import HF21.config.OmikujiProps;
 import HF21.service.OmikujiService;
-import HF21.utils.OmikujiUtil;
 import HF21.vo.HttpResult;
 import HF21.vo.OmikujiResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -21,7 +17,7 @@ public class testController {
     @Resource
     private OmikujiService omikujiService;
 
-    @GetMapping("/draw")
+    @PostMapping("/draw")
     public HttpResult<OmikujiResult> draw() {
         try {
             OmikujiResult result = omikujiService.draw();
@@ -33,5 +29,19 @@ public class testController {
             e.printStackTrace();
             return HttpResult.error("system error" + e.getMessage());
         }
+    }
+
+
+    @GetMapping("/get/{id}")
+    public HttpResult<OmikujiResult> getOmikujiById(@PathVariable Integer id) {
+
+        OmikujiResult omikuji =
+                omikujiService.getOmikujiById(id);
+
+        if(omikuji == null)
+            return HttpResult.error("指定したおみくじは見つかりませんでした");
+
+        return HttpResult.success("success",omikuji);
+
     }
 }

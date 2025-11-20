@@ -78,11 +78,11 @@ public class OmikujiServiceImpl
 
         // 2. 转成 OmikujiContent bean
         OmikujiContent content = new OmikujiContent(
-                record.getLove(),
                 record.getWish(),
+                record.getLove(),
                 record.getStudy(),
-                record.getHealth(),
-                record.getBusiness()
+                record.getBusiness(),
+                record.getHealth()
         );
 
         // 3. 转成 OmikujiLuckyItem bean

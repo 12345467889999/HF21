@@ -11,7 +11,11 @@ import java.io.IOException;
 
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(
+        origins = "http://127.0.0.1:5500",
+        allowedHeaders = "*",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS}
+)
 public class testController {
 
     @Resource

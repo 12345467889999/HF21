@@ -54,10 +54,15 @@
     <script>
         $(document).ready(function () {
 
-            // ngrok 当日にも更新が必要
-            let url = "http://localhost:8888/HF21";
-            let str = url + "/get/" + getParam();
+            // // // ngrok 当日にも更新が必要
+            let url = window.location.href;
+            let param = getParam();
+            let length = 17 + Number(param.length);
+            let newUrl = url.slice(0,-length);
+            let str = newUrl + "get/" + param;
+
             httpRequest(str);
+
 
             function getParam() {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -66,6 +71,7 @@
 
             function httpRequest(urlStr){
                 console.log("httpRequest start");
+                console.log(urlStr);
                 $.ajax({
                     type: "get",
                     url : urlStr,
@@ -75,7 +81,7 @@
                     }
                 }).then(
                     function(json){
-                        jsonParse(data);
+                        jsonParse(json);
                     },
                     function(e){
                         console.log(e);			

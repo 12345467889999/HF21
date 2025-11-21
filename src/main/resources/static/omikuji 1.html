@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>HF DEMO</title>
+</head>
+<body>
+
+    <input type="hidden" class="omikujiJson" value="">
+    <div class="wrap">
+        <!-- 運勢 -->
+        <div class="fortune">
+            <h1>大吉</h1>
+        </div>
+        <!-- 各項目　願事 -->
+        <div class="wish">
+            <h2>願い事</h2>
+            <p>望みは急ぎて叶わずとも、道は細く続きたり。志を曲げず、時を待つべし。</p>
+        </div>
+        <!-- 恋愛 -->
+        <div class="love">
+            <h2>恋愛</h2>
+            <p>思いやりの言葉、良縁を呼ぶ。心を急がせば、ささいな誤り増える。</p>
+        </div>
+        <!-- 学問 -->
+        <div class="study">
+            <h2>学問</h2>
+            <p>基礎を固めるほどに、学びは身につく。欲張らず、一つずつ積むが良し。</p>
+        </div>
+        <!-- 病気 -->
+        <div class="health">
+            <h2>病気</h2>
+            <p>無理を慎み、身をいたわれば自然と回復に向かう。小さき不調も放置せぬこと。</p>
+        </div>
+        <!-- 商売 -->
+        <div class="business">
+            <h2>商売</h2>
+            <p>誠をもって事にあたれば、利は後よりついて来る。安き儲けに心奪われるなかれ。</p>
+        </div>
+        <div class="gotouchi1">
+            <h2>ラッキースポット</h2>
+            <p>名古屋城</p>
+        </div>
+        <div class="gotouchi2">
+            <h2>ラッキーフード</h2>
+            <p>味噌カツ</p>
+        </div>
+    </div>
+
+    <script src="jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // ngrok 当日にも更新が必要
+            let url = "";
+            let str = url + "/get/" + key;
+            httpRequest(str);
+
+            function getParam() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('key');
+                return key;
+            }
+
+            function httpRequest(urlStr){
+                console.log("httpRequest start");
+                $.ajax({
+                    type: "post",
+                    url : urlStr,
+                    dataType : "json",
+                    headers:{
+                        "ngrok-skip-browser-warning": "true"
+                    }
+                }).then(
+                    function(json){
+                        jsonParse(data);
+                    },
+                    function(e){
+                        console.log(e);			
+                    }
+                );
+            }
+            function jsonParse(json){
+                console.log("jsonParse start");
+                    // {
+                        // "code": 200,
+                        // "msg": "success",
+                        // "data": {
+                        // "id": 1,
+                        // "rank": "吉",
+                        // "content": {
+                        // "wish": "願い事は、心を静めて待つことで、時が熟した時に叶う兆しあり。焦らず、日々の
+                        // 努力を続けることが大切です。",
+                        // "love": "愛の道は、共に過ごす時間が絆を深め、心の安らぎをもたらすでしょう。ただし、
+                        // 相手の気持ちを尊重し、思いやりを忘れぬよう心がけて。",
+                        // "study": "学問の道は、努力が実を結び、知識が次第に積み重なります。継続することで、新
+                        // たな発見があり、あなたを導くでしょう。",
+                        // "business": "商売は順調に進む兆しがありますが、新しい挑戦には慎重さが必要です。信頼
+                        // を大切にし、誠実な取引を心がけると吉。",
+                        // "health": "健康は、日常の小さな積み重ねが鍵となります。無理をせず、休息を大切にするこ
+                        // とで、心身ともに安らぎを得られるでしょう。"
+                        // },
+                        // "items": {
+                        // "luckyPlace": "徳川園",
+                        // "nagoyaFood": "小倉トースト"
+                        // }
+                        // }
+                    // }
+                json.data.rank && $(".fortune h1").text(json.data.rank);
+                json.data.content.wish && $(".wish p").text(json.data.content.wish);
+                json.data.content.love && $(".love p").text(json.data.content.love);
+                json.data.content.study && $(".study p").text(json.data.content.study); 
+                json.data.content.health && $(".health p").text(json.data.content.health);
+                json.data.content.business && $(".business p").text(json.data.content.business);
+                json.data.items.luckyPlace && $(".gotouchi1 p").text(json.data.items.luckyPlace);
+                json.data.items.nagoyaFood && $(".gotouchi2 p").text(json.data.items.nagoyaFood);
+            }
+        });
+    </script>
+    
+</body>
+</html>

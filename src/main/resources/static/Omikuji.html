@@ -56,13 +56,12 @@
 
             // ngrok 当日にも更新が必要
             let url = "localhost:8888/HF21";
-            let str = url + "/get/" + key;
+            let str = url + "/get/" + getParam();
             httpRequest(str);
 
             function getParam() {
                 const urlParams = new URLSearchParams(window.location.search);
                 return urlParams.get('key');
-                return key;
             }
 
             function httpRequest(urlStr){

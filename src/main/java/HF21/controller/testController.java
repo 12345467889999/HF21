@@ -11,7 +11,7 @@ import java.io.IOException;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:5500")
 public class testController {
 
     @Resource

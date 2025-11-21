@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Omikuji Viewer</title>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="fortune"><h1>運勢</h1></div>
+
+    <div class="wish">
+        <h2>願い事</h2><p></p>
+    </div>
+
+    <div class="love">
+        <h2>恋愛</h2><p></p>
+    </div>
+
+    <div class="study">
+        <h2>学問</h2><p></p>
+    </div>
+
+    <div class="health">
+        <h2>病気</h2><p></p>
+    </div>
+
+    <div class="business">
+        <h2>商売</h2><p></p>
+    </div>
+
+    <div class="gotouchi1">
+        <h2>ラッキースポット</h2><p></p>
+    </div>
+
+    <div class="gotouchi2">
+        <h2>ラッキーフード</h2><p></p>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        // 读取 omikuji.html?id=xxx
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        if (!id) {
+            alert("URLに ?id=数字 を付けてください。例: omikuji.html?id=1");
+            return;
+        }
+
+        // ★ 你的API路径
+        const apiUrl = "/HF21/get/" + encodeURIComponent(id);
+
+        $.ajax({
+            url: apiUrl,
+            method: "GET",
+            dataType: "json",
+
+            success: function (res) {
+                if (!res || !res.data) {
+                    alert("データが存在しません。");
+                    return;
+                }
+
+                const data = res.data;
+                const c = data.content;
+                const items = data.items;
+
+                $(".fortune h1").text(data.rank || "不明");
+
+                $(".wish p").text(c?.wish || "");
+                $(".love p").text(c?.love || "");
+                $(".study p").text(c?.study || "");
+                $(".health p").text(c?.health || "");
+                $(".business p").text(c?.business || "");
+
+                $(".gotouchi1 p").text(items?.luckyPlace || "");
+                $(".gotouchi2 p").text(items?.nagoyaFood || "");
+            },
+
+            error: function () {
+                alert("おみくじの取得に失敗しました。");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
